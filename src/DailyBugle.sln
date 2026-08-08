@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailyBugle.Wpf", "DailyBugl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailyBugle.Tests", "DailyBugle.Tests\DailyBugle.Tests.csproj", "{C568D009-04A9-4BB6-BE03-95B1CB4EBE0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailyBugle.SecretsTool", "DailyBugle.SecretsTool\DailyBugle.SecretsTool.csproj", "{D70BCA18-D3C3-4F94-9CE2-350515F39067}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,18 @@ Global
 		{C568D009-04A9-4BB6-BE03-95B1CB4EBE0F}.Release|x64.Build.0 = Release|Any CPU
 		{C568D009-04A9-4BB6-BE03-95B1CB4EBE0F}.Release|x86.ActiveCfg = Release|Any CPU
 		{C568D009-04A9-4BB6-BE03-95B1CB4EBE0F}.Release|x86.Build.0 = Release|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Debug|x64.Build.0 = Debug|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Debug|x86.Build.0 = Debug|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Release|x64.ActiveCfg = Release|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Release|x64.Build.0 = Release|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Release|x86.ActiveCfg = Release|Any CPU
+		{D70BCA18-D3C3-4F94-9CE2-350515F39067}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

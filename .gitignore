@@ -427,3 +427,7 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# DailyBugle local secrets (DPAPI-encrypted at rest, see docs/DECISION_LOG.md D-009/D-009a) —
+# never committed, even as ciphertext.
+secrets.local.json
