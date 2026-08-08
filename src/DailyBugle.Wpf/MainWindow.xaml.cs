@@ -1,23 +1,19 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using DailyBugle.Wpf.ViewModels;
 
 namespace DailyBugle.Wpf;
 
 /// <summary>
-/// Interaction logic for MainWindow.xaml
+/// Interaction logic for MainWindow.xaml — pure XAML/DataContext binding, no code-behind logic (MVVM).
 /// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow()
+    /// <summary>Creates a new <see cref="MainWindow"/> bound to the given <paramref name="viewModel"/>.</summary>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewModel"/> is null.</exception>
+    public MainWindow(MainViewModel viewModel)
     {
+        ArgumentNullException.ThrowIfNull(viewModel);
         InitializeComponent();
+        DataContext = viewModel;
     }
 }

@@ -4,9 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DailyBugle.Wpf"
+        xmlns:vm="clr-namespace:DailyBugle.Wpf.ViewModels"
+        xmlns:views="clr-namespace:DailyBugle.Wpf.Views"
+        xmlns:conv="clr-namespace:DailyBugle.Wpf.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+        Title="DailyBugle" Height="620" Width="820" MinHeight="500" MinWidth="700">
+    <Window.Resources>
+        <conv:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Margin="12,12,12,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="DailyBugle" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Acting as:" VerticalAlignment="Center" Margin="0,0,6,0" />
+                <ComboBox Width="180" ItemsSource="{Binding Identities}" SelectedItem="{Binding SelectedIdentity}"
+                          DisplayMemberPath="DisplayName" />
+            </StackPanel>
+        </Grid>
 
-    </Grid>
+        <!-- Only one of Admin/User content is visible at a time (D-013: exclusive tab visibility). -->
+        <Grid Margin="12">
+            <views:AdminView DataContext="{Binding AdminVm}"
+                              Visibility="{Binding IsAdminModeActive, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <views:UserView DataContext="{Binding UserVm}"
+                             Visibility="{Binding IsAdminModeActive, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
+        </Grid>
+    </DockPanel>
 </Window>
