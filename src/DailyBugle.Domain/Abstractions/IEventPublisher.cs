@@ -9,6 +9,6 @@ namespace DailyBugle.Domain.Abstractions;
 /// </summary>
 public interface IEventPublisher
 {
-    /// <summary>Raised whenever a new <see cref="Event"/> is published.</summary>
-    event EventHandler<Event> EventPublished;
+    /// <summary>Raised whenever a new <see cref="Event"/> is published. Null until the first subscriber attaches.</summary>
+    event EventHandler<Event>? EventPublished;
 }
