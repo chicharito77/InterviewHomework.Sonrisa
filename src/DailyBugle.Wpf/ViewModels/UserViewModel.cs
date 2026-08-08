@@ -73,6 +73,7 @@ public sealed partial class UserViewModel : ObservableObject
         StatusMessage = null;
         RefreshRules();
         RefreshHistory();
+        AddRuleCommand.NotifyCanExecuteChanged();
     }
 
     private void RefreshRules()

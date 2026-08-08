@@ -27,10 +27,10 @@
                 <DataGridTextColumn Header="News Type" Binding="{Binding NewsType}" Width="*" />
                 <DataGridTextColumn Header="Channel" Binding="{Binding Channel}" Width="*" />
                 <DataGridCheckBoxColumn Header="Active" Binding="{Binding IsActive}" Width="Auto" />
-                <DataGridTemplateColumn Header="" Width="Auto">
+                <DataGridTemplateColumn Header="" Width="90">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Remove" Padding="8,2"
+                            <Button Content="Remove" Padding="8,2" MinWidth="70" HorizontalAlignment="Stretch"
                                     Command="{Binding DataContext.RemoveRuleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     CommandParameter="{Binding}" />
                         </DataTemplate>

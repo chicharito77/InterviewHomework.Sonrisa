@@ -28,12 +28,19 @@
             </StackPanel>
         </Grid>
 
-        <!-- Only one of Admin/User content is visible at a time (D-013: exclusive tab visibility). -->
+        <!--
+            Only one of Admin/User content is visible at a time (D-013: exclusive tab visibility).
+            Visibility is bound on a wrapping Grid (inheriting MainViewModel's DataContext) rather
+            than directly on the View element, because the View's own DataContext override
+            (AdminVm/UserVm) would otherwise shadow IsAdminModeActive and break the binding.
+        -->
         <Grid Margin="12">
-            <views:AdminView DataContext="{Binding AdminVm}"
-                              Visibility="{Binding IsAdminModeActive, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <views:UserView DataContext="{Binding UserVm}"
-                             Visibility="{Binding IsAdminModeActive, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
+            <Grid Visibility="{Binding IsAdminModeActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <views:AdminView DataContext="{Binding AdminVm}" />
+            </Grid>
+            <Grid Visibility="{Binding IsAdminModeActive, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                <views:UserView DataContext="{Binding UserVm}" />
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>
