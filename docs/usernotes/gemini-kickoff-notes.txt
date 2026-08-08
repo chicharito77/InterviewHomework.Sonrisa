@@ -1,0 +1,43 @@
+Prompt & decision log
+
+root/
+├── docs/
+│   ├── ARCHITECTURE_PLAN.md   
+│   ├── DECISION_LOG.md        
+│   └── prompts/
+│   		└── instructions_setup
+│   		└── planning
+│   		└── backend_poc
+│   		└── frontend_poc
+├── src/                        
+└── README.md                   
+
+_____________________________________________________________________________________________________________________
+
+A helyes beállítás (Session-váltási stratégia):
+Egy fázis (pl. Architecture Setup) végén az eredményt rögzíted a kódban és a PROMPT_HISTORY.md-ben.
+Kiadod a clear parancsot a Copilot CLI-ben.
+Az új session első promptjában röviden átadod az előző fázis kulcseredményeit (pl. "Itt a meglévő projektstruktúra és az adatmodell, most a REST API végpontokat építjük erre...").
+
+Kontextus-híd használata
+
+_____________________________________________________________________________________________________________________
+
+3. A feladat értelmezése: WPF, Admin view és a Hírforrások
+A gondolatmeneted teljesen helytálló és kiváló mérnöki meglátás. A feladat szándékosan homályos ("vague brief"), így a te felelősséged kijelölni a határokat.
+
+Hogyan érdemes felépíteni a koncepciót?
+
+Nem kell valódi hír-scrappert írni: Egy éles RSS olvasó vagy külső API (pl. NewsAPI) integrálása sok időt vinne el hálózati/hitelesítési hibákkal. Ehelyett egy Event Simulator (Hír-szimulátor) a legjobb választás.
+
+Admin View szerepe:
+
+Teszt/Manuális trigger: Az Admin gombnyomásra tud beküldeni szimulált eseményeket (pl. "Form: Category=Market, Severity=Critical, Message='BTC dropped 10%'").
+
+Rendszerállapot & Logok: Látja a kiküldött értesítések státuszát (Success / Failed), és a csatornák állapotát.
+
+User View szerepe:
+
+Értesítési szabályok létrehozása (pl. "Ha Natural Disaster történik -> küldj Slack üzenetet a #general-ra").
+
+Feliratkozások kezelése (Email cím, Slack Webhook URL megadása).

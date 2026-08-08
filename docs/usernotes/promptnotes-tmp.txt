@@ -1,0 +1,214 @@
+used models: 
+- setup: claude-haiku-4.5
+- planning: claude-sonnet-5 (high)
+- backend: claude-sonnet-5 (high)
+- frontend: claude-sonnet-5 (medium)
+- documentation: claude-sonnet-5 (medium)
+
+
+________________________________________________________________
+
+
+Please add the following points to the copilot-instructions.md file (for some chapters i add some more details to include right away).
+- Project structure: source code will be stored in src folder. Prompts about each project phase will be exported to prompts folder. 
+Decision logs, architecture plans should be stored/recorded in docs folder. Thinking of a structure similar like this:
+root/
+├── docs/
+│   ├── ARCHITECTURE_PLAN.md   
+│   ├── DECISION_LOG.md        
+│   └── prompts/
+│   		└── instructions_setup
+│   		└── planning
+│   		└── backend_poc
+│   		└── frontend_poc
+├── src/                        
+└── README.md      
+
+- Naming Conventions chapter
+- Error Handling strategies
+- Documentation standards
+- Async/await patterns
+- C# language feature preferences
+
+Where i did not listed additional info, use your proposals. 
+I have a ~6 hour timeframe for this project, today. 
+
+
+***
+
+My task description defines the following: 
+Please share your results with us via a GitHub repository that must contain:
+•	commits for each major milestone, with meaningful commit messages
+•	your prompt history — all prompts used during the process
+•	your plans, working artifacts, and evidence of how you worked — design docs, decision logs, prompt drafts, intermediate outputs, notes, scratch files, screenshots, etc.
+•	your deliverables — as defined by your own plan
+
+So, based on your answer and the task, i think you should export the session transcript, and a summary document as well, into the prompts folder. 
+Collect these files into instructions_setup folder.
+
+***
+
+Okay, based on the learned session export rule, define a prompt template, which i can trigger easily at the end of each necessary step. It should export the following files:
+
+Target folder: docs/prompts/[session name]
+
+The prompt command template should be stored in .github/prompts folder? I would not want to place it into doc/prompts.
+
+***
+
+Please store the template like .github/EXPORT_SESSION_TEMPLATE.md.
+Make the file compact, easy to understand, and always provide the same output. 
+You can use now the content of docs\prompts\instructions_setup for a cross-check.
+
+________________________________________________________________
+
+KICKOFF & PLANNING
+
+Lets start to work on my job interview task, with the planning phase. Please find the whole description in "\docs\task.txt".
+We already defined important details in "\.github\copilot-instructions.md", please refer to its content.
+
+I am thinking about 5 phases of this development:
+- kickoff & planning, architecture design (this is the current phase)
+- backend implementation
+- frontend implementation
+- tests (manual, unittest)
+- documentation. 
+
+Additional 
+- Architecture decisions should be documented in docs folder (ARCHITECTURE.md).
+- Please define PLAN.md into docs folder as well.
+
+Please get to know the project, read the specified files, but don't start planning just yet! After you finished with the first prompt, i want to give you my current understanding of the project. 
+After that, we can start the planning phase.
+
+The application's name is DailyBugle.
+
+***
+
+Phase 1:Since it would be challenging to import a real world news api, we will implement a separated NewsSimulator in the app.
+If i imagine the data structure, I see that the application works with multiple news type (sport; economy; science), and multiple notification channels (email, slack).
+Lets prefer in-memory data instead of database setups (short timeframe).
+You need to create a DECISIONS_LOG as well to document our process. 
+
+In phase 2, we must use SOLID principles to provide easy-to-test product, even for automated-tests in the future. 
+During architecture design we need to ensure that the app will be easily expandable in the future, with new news type or new notification type (teams). 
+Solution: DailyBugle.sln. It will be in src folder, with the separate system components separated from each other.  
+Core components: 
+- domain classes: Event, AlertRule, DateTimeHandler (for being utest friendly)
+- channels: INotificationChannel interface, with SlackNotificationChannel and EmailNotificationChannel implementations
+- engine: AlertDispatcher
+
+In phase 3, ased on my understanding and the available time for providing a POC for the interviewers, we need to create a simple WPF application, with 2 tabs: admin view (triggering simulation, system monitoring); user view (managing notification settins, handling subscriptions).
+- User tab: list of rules, adding new rules (news type, target channel)
+- Admin tab: see the list of users; fire event with NewsSimulator
+
+Since I have very limited time, in phase 4 i want to ensure that the available code is testable, easy to maintain, and can be worked further. I would like to define at least 3 test fixtures around the most important core logic.
+
+In the last phase, we will scan through the repository, and adjusting the README documentations, crosslinks between md files. Documentation language will be english. 
+
+Please read my insights above. After that, we can start the discussion.
+
+***
+
+I can only provide my slack incoming webhook, for the email sending i dont know how hard would it be to just send a blank texted email to the user. 
+
+My slack webhook: xxxxxxxx
+My email address: nemeth.istvan1892@gmail.com
+
+For sure i will be the test user today, so only use now these data as an example. 
+
+***
+
+If i use option 1 now, will it be possible to register a user with a freemail account? So my question is, will it be provider-independent?
+
+***
+
+I reviewed your proposal, and i have some questions for clarification.
+DECISION_LOG, D_009: please keep in mind that even if they are not committed to the repo, store these values encrypted!
+PLAN:
+- user tab will contain a history list too, about the occurred events? 
+- can you visualize with a simple ascii art or description how each tabs will look like? 
+- i already defined the test users:
+user1: Németh István. Needs email notifications (my specified email address, same as the app's registered email address), interested in sport news.
+user2: Estebán Alemán. Needs slack notifications (with the already provided slack webhook). Interested in science news.
+- since we wont have enough time, right now we wont have user registration form, am i right? I just want to see clearly. 
+- i understand execution plan chapter. Right now, our steps will be sequential
+- deadline is today, 15:30, so lets update the Time allocation accordingly (i know, i am little bit late).
+
+ARCHITECTURE: 
+-  testdata will be stored in DailyBugle.Infrastructure, am i right? 
+
+***
+
+Why the ordering seems to be off in the decision_log file? Can it be re-ordered? 
+
+***
+
+And one more question: it is not clear to me what do you mean under "Acting as" user-swither. Now we have 3 users really, right? 2 dummy test users and 1 admin. 
+
+Can you add a visualization of the WPF app mainframe as well? because maybe that way i will understand this concept. 
+I expect an "Acting as" dropdown in the top right corner. If the admin is selected, Only the admin tab will be visible. If we switch to the dummy user, admin tab disappears, and only the User tab will be active. 
+
+Please clean this requirement part in the planning documents.
+
+***
+
+Please go through PLAN, DECISION_LOG and ARCHITECTURE files one more time and check for any ambiguities which may have been made during the plan review process. After that, i will export the session information, and Commit the new files.
+
+
+
+________________________________________________________________
+
+Backend implementation
+
+Project specific details can be found in "\.github\copilot-instructions.md", please refer to its content.
+Original task description can be found in "\docs\task.txt".
+
+Phase 1 finished some minutes ago, please refer to its end products in ".\docs" folder (ARCHITECTURE.md, PLAN.md, DECISION_LOG.md). 
+Now proceed to Phase 2, as it was planned. 
+
+________________________________________________________________
+
+Frontend implementation
+
+Project specific details can be found in "\.github\copilot-instructions.md", please refer to its content.
+Original task description can be found in "\docs\task.txt".
+Design phase outputs are in ".\docs" folder (ARCHITECTURE.md, PLAN.md, DECISION_LOG.md), with additional files about the backend implementation in the docs folder. 
+Phase 2 finished a little while ago. Please go on to phase 3, which is Frontend implementation.
+
+***
+
+My manual tests partially passed, please write a documentation about it into the "docs\testreports". Cases were executed sequentially, in one app session, so they are also prerequesities of each other.
+TC1: Estebán received a new notification type: Sport. News type added successfully. 
+TC2: Trigger Sport news from admin page (Araujo to Liverpool). Both users received the notification. 
+TC3: Science news triggered from admin page (mRNA flu vaccine). Both users received the notification. 
+TC4: I deleted all news subscription from Estebán except science. I triggered a Sport news from Admin page, only István received it (Rugby news from England)
+
+At the end of the manual test i created 2 screenshots:
+".\docs\testreports\images\phase3-round2-gmailInbox.png"
+".\docs\testreports\images\phase3-round2-slackChannelState.png"
+
+First finding is that the app starts really slowly. dont leave too much magic waits in the production code. 
+Second finding (during TC4): Active checkbox is not editable (temporarily deactivate alarm). This can be logged into the FUTURE_IMPROVEMENTS.
+Third finding (during TC1 and TC4): on the Registered users view it is not updated if i add/delete rules from users. Mark it in the FUTURE_IMPROVEMENTS.
+
+Write a report about the manual tests. After that i need to start the closure.
+
+________________________________________________________________
+
+Documentation
+
+Project specific details can be found in "\.github\copilot-instructions.md", please refer to its content.
+Original task description can be found in "\docs\task.txt".
+Design phase outputs are in ".\docs" folder (ARCHITECTURE.md, PLAN.md, DECISION_LOG.md), with additional files about the backend implementation in the docs folder. 
+Phase 2 and Phase 3 finished.
+
+Unfortunately I run out of time, so the unit test phase needs to be skipped, and we should go to Phase 5, which is documentation. 
+To be honest, testing was done 3 other ways: smoke at the end of phase 2, automatic test and manual test in phase 3. 
+
+Please go through ARCHITECTURE, DECISION_LOG, FUTURE_IMPROVEMENTS, PLAN md files. Also, scan the repository to get an understanding about the layout. After this, please fill in the main README file, with crosslinks, and short but meaningful documentation which can help the reviewers in their job. 
+Pay attention to the DailyBugle.SecretTools documentation, too. 
+
+I think it will be a big part of the review if they can re-run the whole solution in their environment. 
+
+
