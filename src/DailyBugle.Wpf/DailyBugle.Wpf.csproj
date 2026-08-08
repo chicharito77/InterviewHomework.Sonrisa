@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\DailyBugle.Domain\DailyBugle.Domain.csproj" />
+    <ProjectReference Include="..\DailyBugle.Notifications\DailyBugle.Notifications.csproj" />
+    <ProjectReference Include="..\DailyBugle.Engine\DailyBugle.Engine.csproj" />
+    <ProjectReference Include="..\DailyBugle.Infrastructure\DailyBugle.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+</Project>
