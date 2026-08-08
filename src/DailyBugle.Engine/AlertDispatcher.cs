@@ -22,6 +22,15 @@ public sealed class AlertDispatcher
     private readonly ILogger<AlertDispatcher> _logger;
 
     /// <summary>
+    /// Raised after all matching <see cref="AlertRule"/>s for one published <see cref="Event"/> have
+    /// been processed (each attempt already recorded via <see cref="IDeliveryRecordRepository"/>).
+    /// Purely a UI convenience — e.g. lets the Admin tab reactively show "Last Dispatch Results"
+    /// without polling or an artificial delay. <see cref="AlertDispatcher"/>'s own matching/dispatch
+    /// logic does not depend on this event in any way.
+    /// </summary>
+    public event EventHandler<DispatchCompletedEventArgs>? DispatchCompleted;
+
+    /// <summary>
     /// Creates a new <see cref="AlertDispatcher"/> and subscribes to <paramref name="eventPublisher"/>.
     /// </summary>
     /// <exception cref="ArgumentNullException">Thrown when any constructor argument is null.</exception>
@@ -78,6 +87,7 @@ public sealed class AlertDispatcher
         ArgumentNullException.ThrowIfNull(@event);
 
         var matchingRules = _alertRuleRepository.GetActiveByNewsType(@event.NewsType);
+        var records = new List<DeliveryRecord>();
 
         foreach (var rule in matchingRules)
         {
@@ -95,8 +105,9 @@ public sealed class AlertDispatcher
                 var channel = _channelResolver.Resolve(rule.Channel);
                 await channel.SendAsync(user, @event, cancellationToken).ConfigureAwait(false);
 
-                _deliveryRecordRepository.Add(
-                    DeliveryRecord.Succeeded(@event.Id, user.Id, rule.Channel, _dateTimeProvider.UtcNow));
+                var record = DeliveryRecord.Succeeded(@event.Id, user.Id, rule.Channel, _dateTimeProvider.UtcNow);
+                _deliveryRecordRepository.Add(record);
+                records.Add(record);
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
@@ -105,9 +116,12 @@ public sealed class AlertDispatcher
                     "Delivery failed for AlertRule {AlertRuleId}, User {UserId}, Channel {Channel}, Event {EventId}.",
                     rule.Id, user.Id, rule.Channel, @event.Id);
 
-                _deliveryRecordRepository.Add(
-                    DeliveryRecord.Failed(@event.Id, user.Id, rule.Channel, _dateTimeProvider.UtcNow, ex.Message));
+                var record = DeliveryRecord.Failed(@event.Id, user.Id, rule.Channel, _dateTimeProvider.UtcNow, ex.Message);
+                _deliveryRecordRepository.Add(record);
+                records.Add(record);
             }
         }
+
+        DispatchCompleted?.Invoke(this, new DispatchCompletedEventArgs(@event, records));
     }
 }
